@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkWindow" id="window22">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkFrame" id="frame1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">none</property>
+        <child>
+	  <object class="GtkAlignment" id="alignment1">
+            <property name="width_request">798</property>
+            <property name="height_request">570</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">1</property>
+            <child>
+		  <object class="GtkLayout" id="layout1">
+		    <property name="visible">True</property>
+		    <property name="can_focus">False</property>
+		    <child>
+		      <object class="GtkImage" id="image1">
+		        <property name="width_request">100</property>
+		        <property name="height_request">80</property>
+		        <property name="visible">True</property>
+		        <property name="can_focus">False</property>
+		        <property name="stock">gtk-missing-image</property>
+		      </object>
+		      <packing>
+		        <property name="x">40</property>
+		        <property name="y">60</property>
+		      </packing>
+		    </child>
+		    <child>
+		      <object class="GtkSwitch" id="switch1">
+		        <property name="use_action_appearance">False</property>
+		        <property name="width_request">100</property>
+		        <property name="height_request">80</property>
+		        <property name="visible">True</property>
+		        <property name="can_focus">True</property>
+		        <property name="use_action_appearance">False</property>
+		      </object>
+		      <packing>
+		        <property name="x">283</property>
+		        <property name="y">95</property>
+		      </packing>
+		    </child>
+		    <child>
+		      <object class="GtkScrollbar" id="scrollbar1">
+		        <property name="width_request">100</property>
+		        <property name="height_request">80</property>
+		        <property name="visible">True</property>
+		        <property name="can_focus">False</property>
+		        <property name="orientation">vertical</property>
+		      </object>
+		      <packing>
+		        <property name="x">168</property>
+		        <property name="y">153</property>
+		      </packing>
+		    </child>
+		    <child>
+		      <object class="GtkStatusbar" id="statusbar1">
+		        <property name="width_request">100</property>
+		        <property name="height_request">80</property>
+		        <property name="visible">True</property>
+		        <property name="can_focus">False</property>
+		        <property name="orientation">vertical</property>
+		        <property name="spacing">2</property>
+		      </object>
+		      <packing>
+		        <property name="x">171</property>
+		        <property name="y">70</property>
+		      </packing>
+		    </child>
+		    <child>
+		      <object class="GtkHandleBox" id="handlebox1">
+		        <property name="width_request">100</property>
+		        <property name="height_request">80</property>
+		        <property name="visible">True</property>
+		        <property name="can_focus">False</property>
+		        <child>
+		          <placeholder/>
+		        </child>
+		      </object>
+		      <packing>
+		        <property name="x">129</property>
+		        <property name="y">41</property>
+		      </packing>
+		    </child>
+		  </object>
+		</child>
+	     </object>
+        </child>
+        <child type="label">
+          <object class="GtkLabel" id="label1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">&lt;b&gt;frame1&lt;/b&gt;</property>
+            <property name="use_markup">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

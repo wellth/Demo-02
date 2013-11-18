@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkWindow" id="window_test4">
+    <property name="width_request">800</property>
+    <property name="height_request">600</property>
+    <property name="can_focus">False</property>
+    <property name="type">popup</property>
+    <property name="window_position">center-always</property>
+    <property name="hide_titlebar_when_maximized">True</property>
+    <property name="skip_taskbar_hint">True</property>
+    <child>
+      <object class="GtkAlignment" id="alignment1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkFixed" id="fixed1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkImage" id="image1">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label1">
+                <property name="width_request">240</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Home&gt;Start Wellth Check&gt;Blood pressure</property>
+                <attributes>
+                  <attribute name="font-desc" value="Rekha Medium 9"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">520</property>
+                <property name="y">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="exit">
+                <property name="label" translatable="yes">Exit</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">90</property>
+                <property name="height_request">45</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">700</property>
+                <property name="y">60</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="user_name">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Hi &lt;Name&gt;</property>
+                <attributes>
+                  <attribute name="font-desc" value="Rekha Medium 9"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">586</property>
+                <property name="y">34</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label3">
+                <property name="width_request">100</property>
+                <property name="height_request">50</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">What is your blood pressure?</property>
+                <attributes>
+                  <attribute name="font-desc" value="URW Chancery L Bold Italic 22"/>
+                  <attribute name="foreground" value="#b19a48a427f7"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">189</property>
+                <property name="y">60</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="image2">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+              <packing>
+                <property name="x">15</property>
+                <property name="y">211</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label4">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">1 Sit down &amp; insert left arm into BP cuff.
+
+2 Adjust cuff so it surrounds your left bicep.
+
+3 Press START &amp; sit still with left forearm at rest.
+
+4 Cuff will inflate &amp; raise pressure on left bicep. Do NOT panic.
+
+5 Relax &amp; breathe normally. Test takes about 90 secs. 
+
+6 If pressure on your bicep gets painful, press ABORT.</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 9"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">200</property>
+                <property name="y">150</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="next">
+                <property name="label" translatable="yes">Ok</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">90</property>
+                <property name="height_request">45</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">505</property>
+                <property name="y">525</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label9">
+                <property name="width_request">200</property>
+                <property name="height_request">50</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Feedback</property>
+              </object>
+              <packing>
+                <property name="x">80</property>
+                <property name="y">420</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="click_to_measure">
+                <property name="label" translatable="yes">START</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">130</property>
+                <property name="height_request">45</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">80</property>
+                <property name="y">355</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="separator1">
+                <property name="width_request">698</property>
+                <property name="height_request">10</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="x">90</property>
+                <property name="y">333</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label11">
+                <property name="width_request">100</property>
+                <property name="height_request">30</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="yalign">0.47999998927116394</property>
+                <property name="label" translatable="yes">Your diastolic BP is **</property>
+              </object>
+              <packing>
+                <property name="x">580</property>
+                <property name="y">350</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label10">
+                <property name="width_request">100</property>
+                <property name="height_request">30</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Your systolic BP is **</property>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">350</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label5">
+                <property name="width_request">100</property>
+                <property name="height_request">30</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="yalign">0.47999998927116394</property>
+                <property name="label" translatable="yes">Pulse Rate = **</property>
+                <property name="max_width_chars">1</property>
+              </object>
+              <packing>
+                <property name="x">480</property>
+                <property name="y">488</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button1">
+                <property name="label" translatable="yes">Change
+  Music</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">90</property>
+                <property name="height_request">45</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">605</property>
+                <property name="y">60</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="image3">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+              <packing>
+                <property name="x">668</property>
+                <property name="y">495</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="timer_label">
+                <property name="width_request">100</property>
+                <property name="height_request">25</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="yalign">0.49000000953674316</property>
+                <property name="label" translatable="yes">0</property>
+              </object>
+              <packing>
+                <property name="x">215</property>
+                <property name="y">366</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="repeate">
+                <property name="label" translatable="yes">Repeat</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">130</property>
+                <property name="height_request">45</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+                <property name="yalign">0.46000000834465027</property>
+              </object>
+              <packing>
+                <property name="x">80</property>
+                <property name="y">355</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label6">
+                <property name="width_request">100</property>
+                <property name="height_request">30</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="yalign">0.47999998927116394</property>
+                <property name="label" translatable="yes">System message 1 (absolute cutoff)</property>
+                <property name="max_width_chars">1</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 9"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">475</property>
+                <property name="y">468</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="separator2">
+                <property name="width_request">5</property>
+                <property name="height_request">130</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="x">325</property>
+                <property name="y">344</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_normal_smsg1">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Normal &lt; 120</property>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">385</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_normal_smsg2">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Pre-hypertension 120-139</property>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">405</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_normal_smsg3">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Hypertension 140-179</property>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">425</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_normal_smsg4">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Medical check reqd &gt; 180</property>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">445</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_normal_smsg5">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Normal &lt; 80</property>
+              </object>
+              <packing>
+                <property name="x">580</property>
+                <property name="y">385</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_normal_smsg6">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Pre-Hypertension 80-89</property>
+              </object>
+              <packing>
+                <property name="x">580</property>
+                <property name="y">405</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_normal_smsg7">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Hypertension 90-109</property>
+              </object>
+              <packing>
+                <property name="x">580</property>
+                <property name="y">425</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_normal_smsg8">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Medical check reqd &gt;= 110</property>
+              </object>
+              <packing>
+                <property name="x">580</property>
+                <property name="y">445</property>
+              </packing>
+            </child>
+<child>
+              <object class="GtkLabel" id="t4_result_smsg1">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Normal &lt; 120</property>
+				<attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">385</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_result_smsg2">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Pre-hypertension 120-139</property>
+				<attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">405</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_result_smsg3">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Hypertension 140-179</property>
+				<attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">425</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_result_smsg4">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Medical check reqd &gt; 180</property>
+				<attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">445</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_result_smsg5">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Normal &lt; 80</property>
+				<attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">580</property>
+                <property name="y">385</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_result_smsg6">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Pre-Hypertension 80-89</property>
+				<attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">580</property>
+                <property name="y">405</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_result_smsg7">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Hypertension 90-109</property>
+				<attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">580</property>
+                <property name="y">425</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t4_result_smsg8">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Medical check reqd &gt;= 110</property>
+				<attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">580</property>
+                <property name="y">445</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

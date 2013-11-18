@@ -1,0 +1,31 @@
+
+[Anjuta]
+Maximized=1
+Geometry=1317x744+49+24
+
+[Project Manager]
+Shortcut=wev1//src//wev1
+Expand=wev1%%%wev1//src%%%wev1//src//wev1
+
+[File Loader]
+Files=../../src/main.c#64%%%../../src/window_defs_n_config.h#18%%%../../src/summary_screen.c#345%%%../../src/profile.c#106%%%../../src/main_test_backend.h#70%%%../../src/choose_graph_image.c#216%%%../../src/weight_n_bmi.c#29
+
+[Document Manager]
+bookmarks=<?xml version="1.0" encoding="UTF-8"?>\n<bookmarks/>\n
+
+[Execution]
+Program uri=../../src/wev1
+Run in terminal=2
+Working directories=../../../wev1
+
+[Build]
+Configuration list=1:Default:%%%1:Debug:Debug%%%1:Profiling:Profiling%%%1:Optimized:Optimized
+Selected Configuration=Default
+BuildArgs/Default=--enable-maintainer-mode
+BuildArgs/Debug=--enable-maintainer-mode 'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'
+BuildArgs/Profiling=--enable-maintainer-mode 'CFLAGS=-g -pg' 'CXXFLAGS=-g -pg' 'JFLAGS=-g -pg' 'FFLAGS=-g -pg'
+BuildArgs/Optimized=--enable-maintainer-mode 'CFLAGS=-O2' 'CXXFLAGS=-O2' 'JFLAGS=-O2' 'FFLAGS=-O2'
+
+[Debugger]
+Breakpoint=1:../../src/main.c:449:0:
+Stop at beginning=2

@@ -1,0 +1,174 @@
+#include <config.h>
+#include <gtk/gtk.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <glib/gi18n.h>
+#include <string.h>
+#include "window_defs_n_config.h"
+#include "main_test_backend.h"
+
+gboolean WriteDataFromUI(char * WriteDataBuf) {
+	FILE *fp;
+	int length , ret;
+	fp = fopen(IN_ENTERY_FILE, "w");
+	if(fp < 0){
+		printf("IN_ENTERY_FILE failed to open in write mode");
+		return FALSE;
+	}
+	length = strlen(WriteDataBuf);
+	WriteDataBuf[length] = '\0';
+	if ( ret = fwrite(WriteDataBuf,1, length+1, fp) != (length+1)){
+		printf("IN_ENTERY_FILE failed to write data");
+		fclose (fp);
+		return FALSE;
+	} 
+	fclose (fp);
+	return TRUE;
+}
+
+int ReadDemonLoginStatus(){
+	FILE *fp, *fpUS;
+	int length, ret, fsize;
+	char *ArrOfStr[8];
+	char ReadDataBuf[255];
+	
+	fp = fopen(OT_ENTERY_FILE, "r");
+	if(fp < 0){
+		printf("OT_ENTERY_FILE failed to open in read mode");
+		return UNKOWN_OP;
+	}
+	if(GetLine (fp, ReadDataBuf)) {
+		g_print("\n%s \n", ReadDataBuf);
+		CreateArrayOfString(ArrOfStr, ReadDataBuf);
+		if (strcmp("LOGIN_SUCCESS", ArrOfStr[0]) == 0){
+			strcpy(GlobalUserName, ArrOfStr[1]);
+			strcpy(GlobalUserName, ArrOfStr[1]);
+			//strcpy(Age, ArrOfStr[2]);
+			fclose (fp);
+			FreeArrayOfString (ArrOfStr);
+			return LOGIN_SUCCESS;
+		} else {
+			strcpy(GlobalUserName, "NULL");
+			fclose (fp);
+			FreeArrayOfString (ArrOfStr);
+			return LOGIN_INVALID_PWD;
+		}
+	}
+	fclose (fp);
+	return UNKOWN_OP;
+}
+
+gboolean isOutputFlagSet(){
+	FILE *fp;
+	int length, ret, fsize;
+	char ReadDataBuf[MAX_BYTE_DATA_IN_ENTRY_FILE], ch;
+	
+	fp = fopen(OT_TEXT_FILE, "r");
+	if(fp < 0){
+		printf("OT_TEXT_FILE failed to open in read mode");
+		return FALSE;
+	}
+	//GetLine(fp, ReadDataBuf);
+	//printf("is output flag set ");
+	if ( ret = fread(&ch, 1, 1, fp) > MAX_BYTE_DATA_IN_ENTRY_FILE){
+		printf("OT_TEXT_FILE failed to read data");
+		fclose (fp);
+		return FALSE;
+	} 
+	
+	//printf("is output flag set %c", ch);
+	if(ch == '1'){
+		fclose (fp);
+		return TRUE;
+	}
+	fclose (fp);
+	return FALSE;
+}
+
+void ReadBMIForSummary(){
+	FILE *fp;
+	char **ArrOfStr;
+	char ReadDataBuf[MAX_BYTE_DATA_IN_ENTRY_FILE], ch;
+	fp = fopen(BMI_SUMMARY_FILE, "r");
+	if(fp < 0){
+		g_critical ("file \"%s\" is missing in file",BMI_SUMMARY_FILE);
+		UserSummaryData.Weight = 0.0;
+		UserSummaryData.BMI_val = 0.0;
+		UserSummaryData.Height = 0.0;
+		return;
+	}
+	if(GetLine (fp, ReadDataBuf)) {
+		ArrOfStr = (char **)g_strsplit (ReadDataBuf, ",", 4);
+		UserSummaryData.Weight = atof(ArrOfStr[0]);
+		UserSummaryData.BMI_val = atof(ArrOfStr[1]);
+		UserSummaryData.Height = atof(ArrOfStr[2]);
+		g_strfreev (ArrOfStr);
+	}
+	fclose(fp);
+}
+
+void ReadLoginForSummary(){
+	FILE *fp;
+	char **ArrOfStr;
+	char ReadDataBuf[MAX_BYTE_DATA_IN_ENTRY_FILE], ch;
+	fp = fopen(LOGIN_SUMMARY_FILE, "r");
+	if(fp < 0){
+		g_critical ("file \"%s\" is missing in file",LOGIN_SUMMARY_FILE);
+		strcpy(UserSummaryData.Login_name, "NULL");
+		UserSummaryData.Age = 0;
+		strcpy(UserSummaryData.Gender, "NULL");
+		return;
+	}
+	if(GetLine (fp, ReadDataBuf)) {
+		ArrOfStr = (char **)g_strsplit (ReadDataBuf, ",", 4);
+		strcpy(UserSummaryData.Login_name, ArrOfStr[0]);
+		UserSummaryData.Age = atoi(ArrOfStr[1]);
+		strcpy(UserSummaryData.Gender, ArrOfStr[2]);
+		g_strfreev (ArrOfStr);
+	}
+	fclose(fp);
+}
+
+void ReadBPForSummary (){
+	FILE *fp;
+	char **ArrOfStr;
+	char ReadDataBuf[MAX_BYTE_DATA_IN_ENTRY_FILE], ch;
+	fp = fopen(BP_SUMMARY_FILE, "r");
+	if(fp < 0){
+		g_critical ("file \"%s\" is missing in file",BP_SUMMARY_FILE);
+		UserSummaryData.SysBP = 0.0;
+		UserSummaryData.DiaBp = 0.0;
+		UserSummaryData.PulseRate = 0.0;
+		return;
+	}
+	if(GetLine (fp, ReadDataBuf)) {
+		g_print("\n%s\n",ReadDataBuf);
+		ArrOfStr = (char **)g_strsplit (ReadDataBuf, ",", 4);
+		g_print("\n%s -- %s -- %s\n", ArrOfStr[0], ArrOfStr[1], ArrOfStr[2]);
+		UserSummaryData.SysBP = atof(ArrOfStr[0]);
+		UserSummaryData.DiaBp = atof(ArrOfStr[1]);
+		UserSummaryData.PulseRate = atof(ArrOfStr[2]);
+		g_print("%f -- %f --%f\n",UserSummaryData.SysBP, UserSummaryData.DiaBp, UserSummaryData.PulseRate);
+		g_strfreev (ArrOfStr);
+	}
+	fclose(fp);
+}
+
+void ReadBFForSummary (){
+		FILE *fp;
+	char **ArrOfStr;
+	char ReadDataBuf[MAX_BYTE_DATA_IN_ENTRY_FILE], ch;
+	fp = fopen(BF_SUMMARY_FILE, "r");
+	if(fp < 0){
+		g_critical ("file \"%s\" is missing in file",BF_SUMMARY_FILE);
+		UserSummaryData.BF_val = 0.0;
+		return;
+	}
+	if(GetLine (fp, ReadDataBuf)) {
+		ArrOfStr = (char **)g_strsplit (ReadDataBuf, ",", 4);
+		UserSummaryData.BF_val = atof(ArrOfStr[0]);
+		g_strfreev (ArrOfStr);
+	}
+	fclose(fp);
+
+}

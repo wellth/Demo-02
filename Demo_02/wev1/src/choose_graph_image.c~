@@ -1,0 +1,602 @@
+#include <config.h>
+#include <gtk/gtk.h>
+
+#include <glib/gi18n.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "window_defs_n_config.h"
+#include "main_test_backend.h"
+
+#define BMI_VALUES_N_GRAPH_FILE  		"GraphsNValues/BMI.csv"
+#define BODYFAT_VALUES_N_GRAPH_FILE  	"GraphsNValues/BODYFAT.csv"
+#define SBP_VALUES_N_GRAPH_FILE  		"GraphsNValues/SBP.csv"
+#define DBP_VALUES_N_GRAPH_FILE  		"GraphsNValues/DBP.csv"
+
+void BMI_system_msg(float bmi_value, char msg_buf[]){
+	FILE * fp;
+	int ret, i;
+	char *ArrOfStr[32], *char_ptr;
+	char line_buf[512];
+	unsigned char abslt_value_starts = 0;
+	float val_one, val_two;
+
+	for(i=0; i < 32; i++)
+		ArrOfStr[i] = NULL;
+	
+	//strcpy(msg_buf, "Your Weight & BMI test indicates: ");
+	strcpy(msg_buf, "");
+		fp = fopen(BMI_VALUES_N_GRAPH_FILE, "r");
+	if(fp < 0){
+		printf("BMI absolute n relative value file not able to open");
+		strcpy(msg_buf, "NULL");
+		return;
+	} 
+	while( (ret=GetLine(fp, line_buf)) != 0 ){
+		CreateArrayOfString(ArrOfStr, line_buf);
+		if ( abslt_value_starts ){
+			if( (char_ptr = strchr(ArrOfStr[0], '-')) == NULL ) //this is a single absolute value ( not checking in the range)
+			{
+				if(abslt_value_starts == 1) //if the bmi value is very first entry in CSV,user BMI is < value in CSV file
+				{
+					abslt_value_starts++;
+					val_one = atof(ArrOfStr[0]);
+					if(val_one >= bmi_value) {
+						strcat(msg_buf, ArrOfStr[1]);
+						FreeArrayOfString(ArrOfStr);
+						break;
+					}
+				}
+				else  //the user BMI value is greater (>)value in CSV
+				{
+					val_one = atof(ArrOfStr[0]);
+					if(val_one <= bmi_value) {
+						strcat(msg_buf, ArrOfStr[1]);
+						FreeArrayOfString(ArrOfStr);
+						break;
+					}
+				}
+			}
+			else  //absolute value range checking
+			{
+				*char_ptr = 0;
+				val_one = atof(ArrOfStr[0]);
+				val_two = atof(++char_ptr);
+				if( (bmi_value >= val_one) && (bmi_value <= val_two) ){
+					strcat(msg_buf, ArrOfStr[1]);
+					FreeArrayOfString(ArrOfStr);
+					break;
+				}
+			}
+		}
+		if( strcmp(ArrOfStr[0], "--absolute_value--") == 0){
+			abslt_value_starts = 1;
+		}
+		FreeArrayOfString(ArrOfStr);
+	}
+	fclose(fp);
+}
+
+void get_bmi_summary_graph_name(float bmi_value, int Age, char gender[], char graph_name[]){ 
+	FILE * fp;
+	int ret, i;
+	char *ArrOfStr[32], *char_ptr;
+	char line_buf[512];
+	unsigned char relative_value_starts = 0;
+	float age_one, age_two, bmi_one, bmi_two, bmi_three, bmi_four;
+
+	char gender_tag[16];
+	strcpy(graph_name, "GraphsNValues/bmi/");
+	
+	g_print("\n^^bmi-%f--AGE-%d--gender-%s^^\n",bmi_value,Age, gender);
+	
+	for(i=0; i < 32; i++)
+		ArrOfStr[i] = NULL;
+	
+	if( (strcmp(gender, "Male")==0) || (strcmp(gender,"male") == 0) || (strcmp(gender, "MALE") == 0) ){
+		strcat(graph_name, "male/");
+		strcpy(gender, "male");
+		sprintf( gender_tag, "--%s--", gender);
+	} else {
+		strcat(graph_name, "female/");
+		strcpy(gender, "female");
+		sprintf( gender_tag, "--%s--", gender);
+	}
+
+	fp = fopen(BMI_VALUES_N_GRAPH_FILE, "r");
+	if(fp < 0){
+		printf("BMI absolute n relative value file not able to open");
+		//strcpy(msg_buf, "NULL");
+		return;
+	}
+	while( (ret=GetLine(fp, line_buf)) != 0 ){
+		CreateArrayOfString(ArrOfStr, line_buf);
+		if(relative_value_starts)
+		{
+			if( (char_ptr = strchr(ArrOfStr[0], '-')) == NULL )
+			{
+				*char_ptr = 0;
+				age_one = atoi(ArrOfStr[0]);
+				if( Age >= age_one ){
+					bmi_one = atof(ArrOfStr[1]);
+					bmi_two = atof(ArrOfStr[2]);
+					bmi_three = atof(ArrOfStr[3]);
+					bmi_four = atof(ArrOfStr[4]);
+					g_print("\n^^^^%f %f-%f %f^^^^^\n", bmi_one, bmi_two, bmi_three, bmi_four);
+					if(bmi_value < bmi_one){
+						strcat(graph_name, ArrOfStr[5]);
+					}
+					if( (bmi_value >= bmi_one) && (bmi_value < bmi_two) ){
+						strcat(graph_name, ArrOfStr[6]);
+					}
+					if( (bmi_value >= bmi_two) && (bmi_value < bmi_three) ){
+						strcat(graph_name, ArrOfStr[7]);
+					}
+					if( (bmi_value >= bmi_three) && (bmi_value < bmi_four) ){
+						strcat(graph_name, ArrOfStr[8]);
+					}
+					if(bmi_value >= bmi_four){
+						strcat(graph_name, ArrOfStr[9]);
+					}
+					FreeArrayOfString(ArrOfStr);
+					break;
+				}
+			}
+			else
+			{
+				*char_ptr = 0;
+				age_one = atoi(ArrOfStr[0]);
+				age_two = atoi(++char_ptr);
+				if( (Age >= age_one) && (Age <= age_two) ){
+					bmi_one = atof(ArrOfStr[1]);
+					bmi_two = atof(ArrOfStr[2]);
+					bmi_three = atof(ArrOfStr[3]);
+					bmi_four = atof(ArrOfStr[4]);
+					g_print("\n^^^^%f %f-%f %f^^^^^\n", bmi_one, bmi_two, bmi_three, bmi_four);
+					if(bmi_value < bmi_one){
+						strcat(graph_name, ArrOfStr[5]);
+					}
+					if( (bmi_value >= bmi_one) && (bmi_value < bmi_two) ){
+						strcat(graph_name, ArrOfStr[6]);
+					}
+					if( (bmi_value >= bmi_two) && (bmi_value < bmi_three) ){
+						strcat(graph_name, ArrOfStr[7]);
+					}
+					if( (bmi_value >= bmi_three) && (bmi_value < bmi_four) ){
+						strcat(graph_name, ArrOfStr[8]);
+					}
+					if(bmi_value >= bmi_four){
+						strcat(graph_name, ArrOfStr[9]);
+					}
+					FreeArrayOfString(ArrOfStr);
+					break;
+				}
+			}
+		}
+		if( strcmp(ArrOfStr[0], gender_tag) == 0){
+			relative_value_starts = 1;
+		}
+		FreeArrayOfString(ArrOfStr);
+	}
+	fclose(fp);
+}
+
+
+void blood_pressure_system_msg(float sbp, float dbp, float pls_rate, char msg_buf[]){
+	FILE * fp;
+	int ret, i;
+	char *ArrOfStr[32], *char_ptr1, *char_ptr2;
+	char line_buf[512];
+	unsigned char abslt_value_starts;
+	float sbp_val_one, sbp_val_two, dbp_val_one, dbp_val_two;
+	for(i=0; i < 32; i++)
+		ArrOfStr[i] = NULL;
+	
+	//strcpy(msg_buf, "You BP test indicates: ");
+	strcpy(msg_buf, "");
+	abslt_value_starts = 0;
+	fp = fopen(DBP_VALUES_N_GRAPH_FILE, "r");
+	if(fp < 0){
+		printf("blood pressure absolute n relative value file not able to open");
+		//strcpy(msg_buf, "NULL");
+		return;
+	} 
+	while( (ret=GetLine(fp, line_buf)) != 0 )
+	{
+		CreateArrayOfString(ArrOfStr, line_buf);
+		g_print("%s", line_buf);
+		if ( abslt_value_starts ){
+			if( ((char_ptr1 = strchr(ArrOfStr[0], '-')) == NULL) || ((char_ptr2 = strchr(ArrOfStr[2], '-')) == NULL) ) //this is a single absolute value ( not checking in the range)
+			{
+				if(abslt_value_starts == 1) //if the bmi value is very first entry in CSV BMI is < value in CSV file
+				{
+					abslt_value_starts++;
+					sbp_val_one = atof(ArrOfStr[0]);
+					dbp_val_one = atof(ArrOfStr[2]);
+					g_print("\n%f -- %f\n", sbp_val_one, dbp_val_one);
+					if( (sbp_val_one >= sbp) && (dbp_val_one >= dbp) ) {
+						strcat(msg_buf, ArrOfStr[3]);
+						FreeArrayOfString(ArrOfStr);
+						break;
+					}
+				}
+				else  //the BMI value is greater (>)value in CSV
+				{
+					sbp_val_one = atof(ArrOfStr[0]);
+					dbp_val_one = atof(ArrOfStr[2]);
+					if( (sbp_val_one <= sbp) || (dbp_val_one <= dbp) ) {
+						strcat(msg_buf, ArrOfStr[3]);
+						FreeArrayOfString(ArrOfStr);
+						break;
+					}
+				}
+			}
+			else  //absolute value range checking
+			{
+				*char_ptr1 = 0;
+				sbp_val_one = atof(ArrOfStr[0]);
+				sbp_val_two = atof(++char_ptr1);
+				*char_ptr2 = 0;
+				dbp_val_one = atof(ArrOfStr[2]);
+				dbp_val_two = atof(++char_ptr2);
+				g_print("\nsbp-- %f -- %f dbp-- %f -- %f\n", sbp_val_one, sbp_val_two, dbp_val_one, dbp_val_two);
+				if( (sbp >= sbp_val_one) && (sbp <= sbp_val_two) && (dbp >= dbp_val_one) && (dbp <= dbp_val_two) ){
+					strcat(msg_buf, ArrOfStr[3]);
+					FreeArrayOfString(ArrOfStr);
+					break;
+				}
+			}
+		}
+		if( strcmp(ArrOfStr[0], "--sbp_n_dbp--") == 0){
+			g_print("absolute value- set \n");
+			abslt_value_starts = 1;
+		}
+		FreeArrayOfString(ArrOfStr);
+	}
+	fclose(fp);	
+}
+
+void get_blood_pressure_summary_graph_name(float sbp, float dbp, int Age, char gender[], char sbp_graph_name[], char dbp_graph_name[]){ 
+	FILE * fp;
+	int ret, i;
+	char *ArrOfStr[32], *char_ptr;
+	char line_buf[512];
+	unsigned char sbp_relative_value_starts = 0, arr_index;
+	unsigned char dbp_relative_value_starts = 0;
+	float sbpcsv_val[8], dbpcsv_val[8];
+	float age_one;
+	char sbp_gender_tag[32];
+	char dbp_gender_tag[32];
+
+	strcpy(sbp_graph_name, "GraphsNValues/bp/sbp/");
+	strcpy(dbp_graph_name, "GraphsNValues/bp/dbp/");
+	
+	for(i=0; i < 32; i++)
+		ArrOfStr[i] = NULL;
+	
+	if( (strcmp(gender, "Male")==0) || (strcmp(gender,"male") == 0) || (strcmp(gender, "MALE") == 0) ){
+		strcat(sbp_graph_name, "male/");
+		strcat(dbp_graph_name, "male/");
+		sprintf( sbp_gender_tag, "--sbp_male--");
+		sprintf( dbp_gender_tag, "--dbp_male--");
+	} else {
+		strcat(sbp_graph_name, "female/");
+		strcat(dbp_graph_name, "female/");
+		strcpy( sbp_gender_tag, "--sbp_female--");
+		strcpy( dbp_gender_tag, "--dbp_female--");
+	}
+g_print("------------------------\n %s \n %s \n--------------------------\n",sbp_gender_tag, dbp_gender_tag);
+	fp = fopen(DBP_VALUES_N_GRAPH_FILE, "r");
+	if(fp < 0){
+		printf("BMI absolute n relative value file not able to open");
+		//strcpy(msg_buf, "NULL");
+		return;
+	}
+//----search for the systolic bp tag in CSV
+	while( (ret=GetLine(fp, line_buf)) != 0 ){
+		CreateArrayOfString(ArrOfStr, line_buf);
+		//g_print("\n%s\n",line_buf);
+		if(sbp_relative_value_starts)
+		{
+			age_one = atof(ArrOfStr[0]);
+			//age_two = atof(++char_ptr);
+			if( Age < 18 ){
+				if(Age == age_one){
+					sbpcsv_val[0] = atof(ArrOfStr[1]);
+					sbpcsv_val[1] = atof(ArrOfStr[2]);
+					sbpcsv_val[2] = atof(ArrOfStr[3]);
+					sbpcsv_val[3] = atof(ArrOfStr[4]);
+					sbpcsv_val[4] = atof(ArrOfStr[5]);
+					sbpcsv_val[5] = atof(ArrOfStr[6]);
+					sbpcsv_val[6] = atof(ArrOfStr[7]);
+					sbpcsv_val[7] = atof(ArrOfStr[8]);
+					if(sbp < sbpcsv_val[0]){
+						strcat(sbp_graph_name, ArrOfStr[9]);
+					}
+					if( (sbp > sbpcsv_val[0]) && (sbp < sbpcsv_val[1]) ){
+						strcat(sbp_graph_name, ArrOfStr[10]);
+					}
+					if( (sbp > sbpcsv_val[1]) && (sbp < sbpcsv_val[2]) ){
+						strcat(sbp_graph_name, ArrOfStr[11]);
+					}
+					if( (sbp > sbpcsv_val[2]) && (sbp < sbpcsv_val[3]) ){
+						strcat(sbp_graph_name, ArrOfStr[12]);
+					}
+					if( (sbp > sbpcsv_val[3]) && (sbp < sbpcsv_val[4]) ){
+						strcat(sbp_graph_name, ArrOfStr[13]);
+					}
+					if( (sbp > sbpcsv_val[4]) && (sbp < sbpcsv_val[5]) ){
+						strcat(sbp_graph_name, ArrOfStr[14]);
+					}
+					if( (sbp > sbpcsv_val[5]) && (sbp < sbpcsv_val[6]) ){
+						strcat(sbp_graph_name, ArrOfStr[15]);
+					}
+					if( (sbp > sbpcsv_val[6]) && (sbp < sbpcsv_val[7]) ){
+						strcat(sbp_graph_name, ArrOfStr[16]);
+					}
+					if(sbp > sbpcsv_val[7]){
+						strcat(sbp_graph_name, ArrOfStr[17]);
+					}
+					FreeArrayOfString(ArrOfStr);
+					break;
+				}
+			}
+			else
+			{
+				if(age_one == 18) {
+					sbpcsv_val[0] = atof(ArrOfStr[1]);
+					sbpcsv_val[1] = atof(ArrOfStr[2]);
+					sbpcsv_val[2] = atof(ArrOfStr[3]);
+					sbpcsv_val[3] = atof(ArrOfStr[4]);
+					sbpcsv_val[4] = atof(ArrOfStr[5]);
+					sbpcsv_val[5] = atof(ArrOfStr[6]);
+					sbpcsv_val[6] = atof(ArrOfStr[7]);
+					sbpcsv_val[7] = atof(ArrOfStr[8]);
+					arr_index = 9;
+					g_print("\n^^sbp-%f--dbp-%f--age-%d^^\n",sbp,dbp,Age);
+					g_print("\n^^^^%f %f-%f %f-%f %f-%f %f^^^^^\n", sbpcsv_val[0],sbpcsv_val[1],sbpcsv_val[2],sbpcsv_val[3],sbpcsv_val[4],sbpcsv_val[5],sbpcsv_val[6],sbpcsv_val[7]);
+					if(sbp < sbpcsv_val[0]){
+						strcat(sbp_graph_name, "");
+						arr_index = 9;
+					}
+					if( (sbp >= sbpcsv_val[0]) && (sbp < sbpcsv_val[1]) ){
+						strcat(sbp_graph_name, "");
+						arr_index = 10;
+					}
+					if( (sbp >= sbpcsv_val[1]) && (sbp < sbpcsv_val[2]) ){
+						strcat(sbp_graph_name, "");
+						arr_index = 11;
+					}
+					if( (sbp >= sbpcsv_val[2]) && (sbp < sbpcsv_val[3]) ){
+						strcat(sbp_graph_name, "");
+						arr_index = 12;
+					}
+					if( (sbp >= sbpcsv_val[3]) && (sbp < sbpcsv_val[4]) ){
+						strcat(sbp_graph_name, "");
+						arr_index = 13;
+					}
+					if( (sbp >= sbpcsv_val[4]) && (sbp < sbpcsv_val[5]) ){
+						strcat(sbp_graph_name, "");
+						arr_index = 14;
+					}
+					if( (sbp >= sbpcsv_val[5]) && (sbp < sbpcsv_val[6]) ){
+						strcat(sbp_graph_name, "");
+						arr_index = 15;
+					}
+					if( (sbp >= sbpcsv_val[6]) && (sbp < sbpcsv_val[7]) ){
+						strcat(sbp_graph_name, "");
+						arr_index = 16;
+					}
+					if(sbp >= sbpcsv_val[7]){
+						strcat(sbp_graph_name, "");
+						arr_index = 17;
+					}
+					strcat(sbp_graph_name, ArrOfStr[arr_index]);
+					FreeArrayOfString(ArrOfStr);
+					break;
+				}
+			}
+		}
+		if( strcmp(ArrOfStr[0], sbp_gender_tag) == 0 ){
+			sbp_relative_value_starts = 1;
+		}
+		FreeArrayOfString(ArrOfStr);
+	}
+//----search for the diastolic bp tag in CSV
+	while( (ret=GetLine(fp, line_buf)) != 0 ){
+		CreateArrayOfString(ArrOfStr, line_buf);
+		if(dbp_relative_value_starts)
+		{
+			age_one = atof(ArrOfStr[0]);
+			//age_two = atof(++char_ptr);
+			if( Age < 18 ){
+				if(Age == age_one){
+					dbpcsv_val[0] = atof(ArrOfStr[1]);
+					dbpcsv_val[1] = atof(ArrOfStr[2]);
+					dbpcsv_val[2] = atof(ArrOfStr[3]);
+					dbpcsv_val[3] = atof(ArrOfStr[4]);
+					dbpcsv_val[4] = atof(ArrOfStr[5]);
+					dbpcsv_val[5] = atof(ArrOfStr[6]);
+					dbpcsv_val[6] = atof(ArrOfStr[7]);
+					dbpcsv_val[7] = atof(ArrOfStr[8]);
+					if(dbp < dbpcsv_val[0]){
+						strcat(dbp_graph_name, ArrOfStr[9]);
+					}
+					if( (dbp > dbpcsv_val[0]) && (dbp < dbpcsv_val[1]) ){
+						strcat(dbp_graph_name, ArrOfStr[10]);
+					}
+					if( (dbp > dbpcsv_val[1]) && (dbp < dbpcsv_val[2]) ){
+						strcat(dbp_graph_name, ArrOfStr[11]);
+					}
+					if( (dbp > dbpcsv_val[2]) && (dbp < dbpcsv_val[3]) ){
+						strcat(dbp_graph_name, ArrOfStr[12]);
+					}
+					if( (dbp > dbpcsv_val[3]) && (dbp < dbpcsv_val[4]) ){
+						strcat(dbp_graph_name, ArrOfStr[13]);
+					}
+					if( (dbp > dbpcsv_val[4]) && (dbp < dbpcsv_val[5]) ){
+						strcat(dbp_graph_name, ArrOfStr[14]);
+					}
+					if( (dbp > dbpcsv_val[5]) && (dbp < dbpcsv_val[6]) ){
+						strcat(dbp_graph_name, ArrOfStr[15]);
+					}
+					if( (dbp > dbpcsv_val[6]) && (dbp < dbpcsv_val[7]) ){
+						strcat(dbp_graph_name, ArrOfStr[16]);
+					}
+					if(dbp > dbpcsv_val[7]){
+						strcat(dbp_graph_name, ArrOfStr[17]);
+					}
+					FreeArrayOfString(ArrOfStr);
+					break;
+				}
+			}
+			else
+			{
+				if(age_one == 18) {
+					dbpcsv_val[0] = atof(ArrOfStr[1]);
+					dbpcsv_val[1] = atof(ArrOfStr[2]);
+					dbpcsv_val[2] = atof(ArrOfStr[3]);
+					dbpcsv_val[3] = atof(ArrOfStr[4]);
+					dbpcsv_val[4] = atof(ArrOfStr[5]);
+					dbpcsv_val[5] = atof(ArrOfStr[6]);
+					dbpcsv_val[6] = atof(ArrOfStr[7]);
+					dbpcsv_val[7] = atof(ArrOfStr[8]);
+					g_print("\n^^sbp-%f--dbp-%f--age-%d^^\n",sbp,dbp,Age);
+					g_print("\n^^^^%f %f-%f %f-%f %f-%f %f^^^^^\n", dbpcsv_val[0],dbpcsv_val[1],dbpcsv_val[2],dbpcsv_val[3],dbpcsv_val[4],dbpcsv_val[5],dbpcsv_val[6],dbpcsv_val[7]);
+					
+					if(dbp < dbpcsv_val[0]){
+						strcat(dbp_graph_name, "");
+						arr_index = 9;
+					}
+					if( (dbp > dbpcsv_val[0]) && (dbp < dbpcsv_val[1]) ){
+						strcat(dbp_graph_name, "");
+						arr_index = 10;
+					}
+					if( (dbp > dbpcsv_val[1]) && (dbp < dbpcsv_val[2]) ){
+						strcat(dbp_graph_name, "");
+						arr_index = 11;
+					}
+					if( (dbp > dbpcsv_val[2]) && (dbp < dbpcsv_val[3]) ){
+						strcat(dbp_graph_name, "");
+						arr_index = 12;
+					}
+					if( (dbp > dbpcsv_val[3]) && (dbp < dbpcsv_val[4]) ){
+						strcat(dbp_graph_name, "");
+						arr_index = 13;
+					}
+					if( (dbp > dbpcsv_val[4]) && (dbp < dbpcsv_val[5]) ){
+						strcat(dbp_graph_name, "");
+						arr_index = 14;
+					}
+					if( (dbp > dbpcsv_val[5]) && (dbp < dbpcsv_val[6]) ){
+						strcat(dbp_graph_name, "");
+						arr_index = 15;
+					}
+					if( (dbp > dbpcsv_val[6]) && (dbp < dbpcsv_val[7]) ){
+						strcat(dbp_graph_name, "");
+						arr_index = 16;
+					}
+					if(dbp > dbpcsv_val[7]){
+						strcat(dbp_graph_name, "");
+						arr_index = 17;
+					}
+					strcat(dbp_graph_name, ArrOfStr[arr_index]);
+					FreeArrayOfString(ArrOfStr);
+					break;
+				}
+			}
+				
+//			}
+//			FreeArrayOfString(ArrOfStr);
+		}
+		if( strcmp(ArrOfStr[0], dbp_gender_tag) == 0){
+			dbp_relative_value_starts = 1;
+		}
+		FreeArrayOfString(ArrOfStr);
+	}
+	fclose(fp);
+}
+
+void get_bf_summary_graph_name(float bmi_value, float bodyfat_val, int Age, char gender[], char graph_name[]){ 
+	FILE * fp;
+	int ret, i;
+	char *ArrOfStr[32], *char_ptr;
+	char line_buf[512];
+	unsigned char relative_value_starts = 0;
+	float bmi_one, bmi_two, bmi_three, bmi_four, bmi_five, bmi_six;
+	int age_one, age_two;
+
+	char gender_tag[16];
+	strcpy(graph_name, "GraphsNValues/bf/");
+
+	for(i=0; i < 32; i++)
+		ArrOfStr[i] = NULL;
+	
+	if( (strcmp(gender, "Male")==0) || (strcmp(gender,"male") == 0) || (strcmp(gender, "MALE") == 0) ){
+		strcat(graph_name, "male/");
+		strcpy(gender, "male");
+		sprintf( gender_tag, "--%s--", gender);
+	} else {
+		strcat(graph_name, "female/");
+		strcpy(gender, "female");
+		sprintf( gender_tag, "--%s--", gender);
+	}
+
+	fp = fopen(BODYFAT_VALUES_N_GRAPH_FILE, "r");
+	if(fp < 0){
+		printf("BMI absolute n relative value file not able to open");
+		//strcpy(msg_buf, "NULL");
+		return;
+	}
+	while( (ret=GetLine(fp, line_buf)) != 0 ){
+		g_print("--%s^^^bmi-%f bf-%f age-%d gender-%s--\n", line_buf, bmi_value, bodyfat_val, Age, gender);
+		CreateArrayOfString(ArrOfStr, line_buf);
+		if(relative_value_starts)
+		{
+			if( (char_ptr = strchr(ArrOfStr[0], '-')) == NULL )
+			{
+			
+			}
+			else
+			{
+				*char_ptr = 0;
+				age_one = atoi(ArrOfStr[0]);
+				age_two = atoi(++char_ptr);
+				g_print("current checking in limit --%d--%d--\n", age_one, age_two);
+					bmi_one = 18.5;
+					bmi_two = 18.5;
+					bmi_three = 24.9;
+					bmi_four = 25.0;
+					bmi_five = 29.9;
+					bmi_six = 30.0;
+				if( (Age >= age_one) && (Age <= age_two) ){
+
+					if(bmi_value < bmi_one){
+						strcat(graph_name, ArrOfStr[5]);
+					}
+					if( (bmi_value >= bmi_two) && (bmi_value <= bmi_three) ){
+						strcat(graph_name, ArrOfStr[6]);
+					}
+					if( (bmi_value > bmi_four) && (bmi_value < bmi_five) ){
+						strcat(graph_name, ArrOfStr[7]);
+					}
+					if( bmi_value >= bmi_six ){
+						strcat(graph_name, ArrOfStr[8]);
+					}
+					FreeArrayOfString(ArrOfStr);
+					fclose(fp);
+					return;
+				}
+				FreeArrayOfString(ArrOfStr);
+			}
+			
+		}
+		if( strcmp(ArrOfStr[0], gender_tag) == 0){
+			relative_value_starts = 1;
+		}
+		FreeArrayOfString(ArrOfStr);
+	}
+	fclose(fp);
+}
+
+

@@ -1,0 +1,19 @@
+#include <string.h>
+#include "window_defs_n_config.h"
+#include "main_test_backend.h"
+
+gboolean WriteDataFromUI(char * WriteDataBuf) {
+	FILE *fp;
+	int length;
+	fp = fopen(IN_ENTERY_FILE, "w");
+	if(fp < 0){
+		printf("IN_ENTERY_FILE failed to open in write mode");
+		return FALSE;
+	}
+	length = strlen(WriteDataBuf);
+	if ( ret = fwrite(WriteDataBuf,1, length - 1, fp) != (legth-1)){
+		printf("IN_ENTERY_FILE failed to write data");
+		return FALSE;
+	} 
+	return TRUE;
+}

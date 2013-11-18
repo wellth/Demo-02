@@ -1,0 +1,13 @@
+bfm20-39_18.5-24.9t.png
+bfm20-39_18.5-t.png
+bfm20-39_25-29.9t.png
+bfm20-39_30+t.png
+bfm40-59_18.5-24.9t.png
+bfm40-59_18.5-t.png
+bfm40-59_25-29.9t.png
+bfm40-59_30+t.png
+bfm60-79_18.5-24.9t.png
+bfm60-79_18.5t.png
+bfm60-79_25-29.9t.png
+bfm60-79_30+t.png
+BFPngMail.txt

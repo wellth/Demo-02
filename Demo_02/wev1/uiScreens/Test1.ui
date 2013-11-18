@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkActionGroup" id="actiongroup1"/>
+  <object class="GtkWindow" id="window_test1">
+    <property name="width_request">800</property>
+    <property name="height_request">600</property>
+    <property name="can_focus">False</property>
+    <property name="type">popup</property>
+    <property name="window_position">center-always</property>
+    <property name="hide_titlebar_when_maximized">True</property>
+    <property name="skip_taskbar_hint">True</property>
+    <child>
+      <object class="GtkAlignment" id="alignment1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkFixed" id="fixed1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkImage" id="image1">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label1">
+                <property name="width_request">240</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">1</property>
+                <property name="label" translatable="yes">Home&gt;Start Wellth Check&gt;Weight &amp; BMI</property>
+                <attributes>
+                  <attribute name="font-desc" value="Rekha Medium 9"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">543</property>
+                <property name="y">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="exit">
+                <property name="label" translatable="yes">Exit</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">90</property>
+                <property name="height_request">45</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">700</property>
+                <property name="y">60</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="user_name">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Hi &lt;Name&gt;</property>
+                <attributes>
+                  <attribute name="font-desc" value="Rekha Medium 9"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">586</property>
+                <property name="y">34</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label3">
+                <property name="width_request">100</property>
+                <property name="height_request">50</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">What are your weight &amp; BMI?</property>
+                <attributes>
+                  <attribute name="font-desc" value="URW Chancery L Bold Italic 24"/>
+                  <attribute name="foreground" value="#b19a48a427f7"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">164</property>
+                <property name="y">60</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="image2">
+                <property name="width_request">200</property>
+                <property name="height_request">160</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+              <packing>
+                <property name="x">15</property>
+                <property name="y">124</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label4">
+                <property name="width_request">100</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xpad">1</property>
+                <property name="label" translatable="yes">1 Remove heavy personal items like bags/coats
+
+2 Stand with both feet within highlighted area on platform
+
+3 Press START, when ready
+
+4 Remain still until test is completed</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 9"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">240</property>
+                <property name="y">150</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="next">
+                <property name="label" translatable="yes">Ok</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">90</property>
+                <property name="height_request">45</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">505</property>
+                <property name="y">525</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label5">
+                <property name="width_request">100</property>
+                <property name="height_request">25</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Your height is</property>
+              </object>
+              <packing>
+                <property name="x">200</property>
+                <property name="y">295</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame" id="viewport1">
+                <property name="width_request">130</property>
+                <property name="height_request">32</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <placeholder/>
+                </child>
+                <child type="label_item">
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="x">308</property>
+                <property name="y">290</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label6">
+                <property name="width_request">100</property>
+                <property name="height_request">25</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">cms</property>
+              </object>
+              <packing>
+                <property name="x">454</property>
+                <property name="y">295</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label9">
+                <property name="width_request">200</property>
+                <property name="height_request">50</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Feedback</property>
+              </object>
+              <packing>
+                <property name="x">170</property>
+                <property name="y">400</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="click_to_measure">
+                <property name="label" translatable="yes">START</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">130</property>
+                <property name="height_request">45</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">190</property>
+                <property name="y">345</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="separator1">
+                <property name="width_request">598</property>
+                <property name="height_request">10</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="x">190</property>
+                <property name="y">333</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label11">
+                <property name="width_request">60</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">**</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold 12"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">539</property>
+                <property name="y">380</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label10">
+                <property name="width_request">60</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">** Kg</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold 12"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">545</property>
+                <property name="y">350</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="timer_label">
+                <property name="width_request">100</property>
+                <property name="height_request">25</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">0 M:0 S</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold 12"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">340</property>
+                <property name="y">350</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="repeate">
+                <property name="label" translatable="yes">Repeat</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">130</property>
+                <property name="height_request">45</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">190</property>
+                <property name="y">345</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="separator2">
+                <property name="width_request">5</property>
+                <property name="height_request">110</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="x">457</property>
+                <property name="y">344</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t1_normal_smsg1">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="can_focus">False</property>
+                <property name="no_show_all">True</property>
+                <property name="label" translatable="yes">Underweight &lt; 18.5</property>
+              </object>
+              <packing>
+                <property name="x">490</property>
+                <property name="y">410</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t1_normal_smsg2">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="can_focus">False</property>
+                <property name="no_show_all">True</property>
+                <property name="label" translatable="yes">Normal 18.5 - 22.9</property>
+              </object>
+              <packing>
+                <property name="x">496</property>
+                <property name="y">430</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t1_normal_smsg3">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="can_focus">False</property>
+                <property name="no_show_all">True</property>
+                <property name="label" translatable="yes">Overweight 23 - 29.9</property>
+              </object>
+              <packing>
+                <property name="x">488</property>
+                <property name="y">450</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t1_normal_smsg4">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="can_focus">False</property>
+                <property name="no_show_all">True</property>
+                <property name="label" translatable="yes">Obese &gt;= 30.0</property>
+              </object>
+              <packing>
+                <property name="x">512</property>
+                <property name="y">470</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t1_result_smsg1">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="can_focus">False</property>
+                <property name="no_show_all">True</property>
+                <property name="label" translatable="yes">Underweight &lt; 18.5</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">490</property>
+                <property name="y">410</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t1_result_smsg2">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="can_focus">False</property>
+                <property name="no_show_all">True</property>
+                <property name="label" translatable="yes">Normal 18.5 - 22.9</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">495</property>
+                <property name="y">430</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t1_result_smsg3">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="can_focus">False</property>
+                <property name="no_show_all">True</property>
+                <property name="label" translatable="yes">Overweight 23 - 29.9</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">488</property>
+                <property name="y">450</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="t1_result_smsg4">
+                <property name="width_request">100</property>
+                <property name="height_request">20</property>
+                <property name="app_paintable">True</property>
+                <property name="can_focus">False</property>
+                <property name="no_show_all">True</property>
+                <property name="label" translatable="yes">Obese &gt;= 30.0</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold Italic 11"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">512</property>
+                <property name="y">470</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="width_request">73</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Weight = </property>
+              </object>
+              <packing>
+                <property name="x">480</property>
+                <property name="y">350</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label7">
+                <property name="width_request">53</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">BMI = </property>
+              </object>
+              <packing>
+                <property name="x">480</property>
+                <property name="y">380</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,134 @@
+#if 0
+static int init_second_window = 0;
+static int init_login_window = 0;
+static int init_signup_window = 0;
+static int init_mand_msg_window = 0;
+static struct Private* priv = NULL;
+
+/* For testing propose use the local (not installed) ui file */
+/* #define UI_FILE PACKAGE_DATA_DIR"/ui/WindowMain.ui" */
+#define UI_FILE				"src/wev1.ui"
+#define INITIAL_UI_FILE		"src/weInit.ui"
+#define LOGIN_UI_FILE		"src/weLogin.ui"
+#define SIGNUP_UI_FILE		"src/weSignUp.ui"
+#define MAND_MSG_UI_FILE	"src/weMandMsg.ui"
+
+#endif
+/*
+#define CLIENT_LOGO "/home/kiran/Downloads/logo.gif"
+#define WELLTH_LOGO "/home/kiran/Downloads/WeLogoFin.png"
+//#define BG1 		"/home/kiran/Downloads/800x600.jpg"
+//#define BG1 			"/home/kiran/Downloads/222bg.jpg"
+#define BG1 			"/home/kiran/Downloads/w8.jpg"
+#define BG2 			"/home/kiran/Downloads/soft_YB_BG.jpg"
+#define BG 			"/home/kiran/Downloads/yelloBG.png"
+#define TEST1		"/home/kiran/Downloads/WeImg/final_test_1.PNG"
+#define TEST2		"/home/kiran/Downloads/WeImg/final_test_2.PNG"
+#define TEST3		"/home/kiran/Downloads/WeImg/final_test_3.PNG"
+#define TEST4		"/home/kiran/Downloads/WeImg/final_test_4.PNG"
+#define SYMPTOMS	"/home/kiran/Downloads/WeImg/final_check_symptoms.PNG"
+
+ * 
+ */
+
+#define CLIENT_LOGO "Images/logo.png"
+#define WELLTH_LOGO "Images/WeLogoFin.png"
+//#define BG1 		"/home/kiran/Downloads/800x600.jpg"
+//#define BG1 		"/home/kiran/Downloads/222bg.jpg"
+//#define BG1 		"Images/w8.jpg"
+#define BG1 		"Images/soft_YB_BG.jpg"
+#define BG2 		"Images/soft_YB_BG.jpg"
+//#define BG 			"Images/yelloBG.png"
+#define BG 			"Images/soft_YB_BG.jpg"
+#define TEST1		"Images/final_test_1.png"
+#define TEST2		"Images/final_test_2.PNG"
+//#define TEST2		"Images/final_test_2_icon.PNG"
+//#define TEST3		"Images/final_test_3.PNG"
+#define TEST3		"Images/final_test_3_icon.PNG"
+//#define TEST4		"Images/final_test_4.PNG"
+#define TEST4		"Images/final_test_4_icon.PNG"
+#define SYMPTOMS	"Images/final_check_symptoms.PNG"
+#define ADDS1	"Images/add1.gif"
+#define ADDS2	"Images/add12.gif"
+#define ADDS3	"Images/add3.gif"
+#define HM_NEXT_ICON "Images/final_test_1_icon.PNG"
+#define T1_NEXT_ICON "Images/final_test_2_icon.PNG"
+#define T2_NEXT_ICON "Images/final_test_3_icon.PNG"
+#define T3_NEXT_ICON "Images/final_test_4_icon.PNG"
+#define GRAPH		"Images/graph.png"
+
+
+
+#define HOME_UI_FILE			"uiScreens/home.ui"
+#define TEST1_UI_FILE			"uiScreens/Test1.ui"
+#define TEST2_UI_FILE			"uiScreens/Test2.ui"
+#define TEST3_UI_FILE			"uiScreens/Test3.ui"
+#define TEST4_UI_FILE			"uiScreens/Test4.ui"
+#define FST_TP_UI_FILE			"uiScreens/first_time_profile.ui"
+#define PREV_WE_CHECK_UI_FILE	"uiScreens/prev_we_check_stats.ui"
+#define CHECK_SYMPTOMS_UI_FILE	"uiScreens/check_symptoms.ui"
+#define EMAIL_COLLEAGUE_UI_FILE	"uiScreens/email_colleague.ui"
+#define QUICK_WE_CHECK_UI_FILE	"uiScreens/quick_we_check.ui"
+#define DEPENDENT_GUEST_UI_FILE	"uiScreens/dependent_or_guest.ui"
+
+
+
+
+#define HOME_WINDOW				"window_home"
+#define TEST1_WINDOW			"window_test1"
+#define TEST2_WINDOW			"window_test2"
+#define TEST3_WINDOW			"window_test3"
+#define TEST4_WINDOW			"window_test4"
+#define FST_TIME_PROFILE_WINDOW	"window_1st_time_profile"
+#define PREV_WE_CHECK_WINDOW	"window_prev_wellth_check"
+#define CHECK_SYMPTOMS_WINDOW	"window_check_symptoms"
+#define EMAIL_COLLEAGUE_WINDOW	"window_email_colleague"
+#define QUICK_WE_CHECK_WINDOW	"window_quick_we_check"
+#define DEPENDENT_GUEST_WINDOW	"window_dependent_or_guest"
+
+typedef struct _Private Private;
+static struct _Private
+{
+	/* ANJUTA: Widgets declaration for WindowMain.ui - DO NOT REMOVE */
+};
+
+void show_window_mand_msg ();
+void show_window_login ();
+void show_window_signup ();
+void show_window_second();
+void show_window_main();
+void show_window_test1();
+void show_window_test2();
+void show_window_test3();
+void show_window_test4();
+void show_window_home();
+void show_window_first_time_profile();
+void show_window_prev_wellth_check();
+void show_window_check_symptoms();
+void show_window_email_colleague();
+void show_window_quick_wellth_check();
+void show_window_dependent_guest();
+
+void hide_window_test1 ();
+void hide_window_test2 ();
+void hide_window_test3 ();
+void hide_window_test4 ();
+void hide_window_home ();
+void hide_window_first_time_profile();
+void hide_window_prev_wellth_check();
+void hide_window_check_symptoms();
+void hide_window_email_colleague();
+void hide_window_quick_wellth_check();
+void hide_window_dependent_guest ()
+//#define CLIENT_LOGO "/Images/logo.gif"
+//#define WELLTH_LOGO "/Images/logo.gif"
+
+#if 0
+#define TOP_WINDOW		"window_walkin"
+#define INITIAL_WINDOW  "window_init"
+#define	LOGIN_WINDOW	"window_login"
+#define SIGNUP_WINDOW   "window_signup"
+#define MAND_MSG_WINDOW "window_mand_msg"
+
+GtkBuilder *MainBuilder, *InitialBuilder, *LoginBuilder, *SignupBuilder, *MandMsgBuilder;
+#endif

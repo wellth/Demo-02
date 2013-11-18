@@ -1,0 +1,13 @@
+bff20-39_18.5-24.9t.png
+bff20-39_18.5-t.png
+bff20-39_25-29.9t.png
+bff20-39_30+t.png
+bff40-59_18.5-24.9t.png
+bff40-59_18.5-t.png
+bff40-59_25-29.9t.png
+bff40-59_30+t.png
+bff60-79_18.5-24.9t.png
+bff60-79_18.5-t.png
+bff60-79_25-29.9t.png
+bff60-79_30+t.png
+BFPngFemale.txt

@@ -1,0 +1,136 @@
+#include <config.h>
+#include <gtk/gtk.h>
+
+#include <glib/gi18n.h>
+#include <string.h>
+#include "window_defs_n_config.h"
+/*
+//from window.c
+extern GtkBuilder *HomeBuilder, *Test1Builder, *Test2Builder, *Test3Builder, *Test4Builder;
+extern GtkBuilder *FirstTimeProfileBuilder, *PrevWellthCheckBuilder, *CheckSymptomsBuilder;
+extern GtkBuilder *EmailColleagueBuilder, *QuickWeCheckBuilder, *DependentGuestBuilder;
+
+//from main.c
+extern GtkBuilder *MainBuilder, *InitialBuilder, *LoginBuilder, *SignupBuilder, 
+*MandMsgBuilder;
+GtkBuilder *SystemAdminBuilder, *AdminDiagnosticsBuilder, *AdminThemesBuilder, *ClientAdminBuilder;
+*/
+
+FILE * fp;
+#define MAX_CHARS_IN_TICKER 115
+//gboolean continue_timer = TRUE;
+static int N = 0;
+gboolean isTickerFileOpened = FALSE;
+char ticker_arr[MAX_CHARS_IN_TICKER];
+
+
+gboolean ScrollTickerText() {
+	GtkWidget *ticker;
+	char *ticker_ptr;
+	
+	switch(cur_active_screen) {
+		case client_admin_scrn : 
+			ticker = GTK_WIDGET (gtk_builder_get_object(ClientAdminBuilder, "entry1"));
+			break;
+		case check_symptoms_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(CheckSymptomsBuilder, "entry1"));
+			break;
+		case email_colleague_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(EmailColleagueBuilder, "entry1"));
+			break;
+		case home_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(HomeBuilder, "entry1"));
+			break;
+		case last_wellth_check_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(PrevWellthCheckBuilder, "entry1"));
+			break;
+		case quick_wellth_check_scrn : 
+			ticker = GTK_WIDGET (gtk_builder_get_object(QuickWeCheckBuilder, "entry1"));
+			break;
+		case system_admin_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(SystemAdminBuilder, "entry1"));
+			break; 
+		case system_admin_diagnostic_scrn : 
+			ticker = GTK_WIDGET (gtk_builder_get_object(AdminDiagnosticsBuilder, "entry1"));
+			break;
+		case system_admin_theme_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(AdminThemesBuilder, "entry1"));
+			break;
+		case depenednt_or_guest_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(DependentGuestBuilder, "entry1"));
+			break;
+		case first_time_profile_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(FirstTimeProfileBuilder, "entry1"));
+			break;
+		case profile_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(ProfileBuilder, "entry1"));
+			break;
+		case summary_display_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(InitialBuilder, "entry1"));
+			break;
+		case test1_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(Test1Builder, "entry1"));
+			break;
+		case test2_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(Test2Builder, "entry1"));
+			break;
+		case test3_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(Test3Builder, "entry1"));
+			break;
+		case test4_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(Test4Builder, "entry1"));
+			break;
+		case user_summary_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(UserSummaryBuilder, "entry1"));
+			break;
+		case initial_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(InitialBuilder, "entry1"));
+			break;
+		case login_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(LoginBuilder, "entry1"));
+			break;
+		case mand_msg_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(MandMsgBuilder, "entry1"));
+			break;
+		case wev1_scrn :
+			ticker = GTK_WIDGET (gtk_builder_get_object(MainBuilder, "entry1"));
+			break;
+	}
+	//if(MAX_CHARS_IN_TICKER+N >= strlen(ticker_text)) {
+	 //N = 0;	
+	//}
+	//ticker_arr[]
+	//strncpy(ticker_arr, ticker_text + N ,MAX_CHARS_IN_TICKER);
+	if( (cur_active_screen == test1_scrn)  || (cur_active_screen == test2_scrn) || (cur_active_screen == test3_scrn) || (cur_active_screen == test4_scrn) ){
+		// in the test screen dont show ticker
+	} else {
+		ticker_ptr = ReadTickerFromFile(); 
+		gtk_entry_set_text(ticker, ticker_ptr);
+		gtk_widget_show(ticker);
+	}
+	N++;
+	return TRUE;
+}
+
+char * ReadTickerFromFile(){
+	int read_bytes;
+	
+	if(! isTickerFileOpened) {
+		isTickerFileOpened = TRUE;
+		fp = fopen(TICKER_FILE, "r+");
+	}
+	fseek (fp, N, SEEK_SET);
+	if ( (read_bytes = fread(ticker_arr, 1, sizeof(ticker_arr), fp)) != MAX_CHARS_IN_TICKER ) {
+		N = 0;
+		fseek (fp, N, SEEK_SET);
+		fread(ticker_arr, 1, sizeof(ticker_arr), fp);
+	}
+	ticker_arr[MAX_CHARS_IN_TICKER-1] = 0;
+	return ticker_arr;
+}
+
+
+gboolean playAudioFiles(){
+	system ("aplay --test-nowait /home/kiran/audio/Funk_n_Rare_Groove_samples1/Funk_n_Rare_Groove_samples1/DustyF1-break11.wav");
+	return TRUE;
+}
